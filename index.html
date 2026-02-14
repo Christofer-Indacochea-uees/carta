@@ -7,73 +7,54 @@
 
 <style>
 
-/* FONDO GENERAL */
+/* FONDO ROMANTICO REAL */
 
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#fecfef,#ffd6e0);
+  background:radial-gradient(circle at top,#ffd1dc,#ff9aa2,#ffc3a0);
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
-  position:relative;
 }
 
-/* CAPA DECORATIVA */
+/* LUCES SUAVES */
 
-.background-decor{
+body::before{
+  content:"";
   position:fixed;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  pointer-events:none;
-  z-index:0;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle, rgba(255,255,255,0.4), transparent);
+  animation:lightMove 10s infinite linear;
+}
+
+@keyframes lightMove{
+  0%{transform:translate(-10%,-10%);}
+  50%{transform:translate(10%,10%);}
+  100%{transform:translate(-10%,-10%);}
 }
 
 /* PETALOS */
 
-.petals::before,
-.petals::after{
-  content:"🌸 🌺 🌷 🌹 🌼 🌸 🌷 🌹 🌺";
-  position:absolute;
-  width:200%;
-  font-size:24px;
-  animation:fall 12s linear infinite;
-  opacity:0.6;
+.petals{
+  position:fixed;
+  width:100%;
+  height:100%;
+  pointer-events:none;
 }
 
-.petals::after{
-  animation-delay:6s;
+.petal{
+  position:absolute;
+  font-size:20px;
+  animation:fall linear infinite;
 }
 
 @keyframes fall{
-  0%{transform:translateY(-10%);}
-  100%{transform:translateY(110%);}
-}
-
-/* BRILLOS */
-
-.sparkles::before,
-.sparkles::after{
-  content:"✨ ✨ 💫 ✨ 💫 ✨";
-  position:absolute;
-  width:100%;
-  font-size:18px;
-  animation:twinkle 5s ease-in-out infinite;
-}
-
-.sparkles::after{
-  top:60%;
-  animation-delay:2s;
-}
-
-@keyframes twinkle{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(110vh);}
 }
 
 /* CORAZONES */
@@ -82,15 +63,12 @@ body{
   position:fixed;
   width:100%;
   height:100%;
-  top:0;
-  left:0;
   pointer-events:none;
-  z-index:1;
 }
 
 .heart{
   position:absolute;
-  font-size:24px;
+  font-size:22px;
   animation:float 6s linear infinite;
 }
 
@@ -110,18 +88,13 @@ body{
   cursor:pointer;
   box-shadow:0 15px 35px rgba(0,0,0,0.25);
   overflow:hidden;
-  z-index:2;
 }
-
-/* TAPA */
 
 .flap{
   position:absolute;
   width:100%;
   height:100%;
   background:#ff8fab;
-  top:0;
-  left:0;
   transform-origin:top;
   transition:transform 0.8s ease;
   clip-path:polygon(0 0,100% 0,50% 55%);
@@ -138,7 +111,6 @@ body{
   top:70px;
   color:white;
   font-size:18px;
-  z-index:2;
 }
 
 /* CARTA */
@@ -153,7 +125,6 @@ body{
   width:90%;
   box-shadow:0 15px 40px rgba(0,0,0,0.25);
   animation:fadeIn 1s ease;
-  z-index:3;
 }
 
 .card img{
@@ -172,6 +143,17 @@ p{
   color:#444;
 }
 
+button{
+  margin-top:15px;
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  background:#ff4d6d;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
 @keyframes fadeIn{
   from{opacity:0;transform:translateY(20px);}
   to{opacity:1;transform:translateY(0);}
@@ -182,18 +164,18 @@ p{
 
 <body>
 
-<!-- MUSICA WONDERWALL -->
+<!-- MUSICA WONDERWALL REAL -->
 <iframe 
 src="https://www.youtube.com/embed/bx1Bh8ZvH84?autoplay=1&loop=1&playlist=bx1Bh8ZvH84"
 allow="autoplay"
 style="display:none;">
 </iframe>
 
-<!-- FONDO -->
-<div class="background-decor">
-  <div class="petals"></div>
-  <div class="sparkles"></div>
-</div>
+<!-- PETALOS -->
+<div class="petals" id="petals"></div>
+
+<!-- CORAZONES -->
+<div class="hearts" id="hearts"></div>
 
 <!-- SOBRE -->
 <div class="envelope" onclick="openEnvelope()" id="envelope">
@@ -201,25 +183,36 @@ style="display:none;">
   <div class="envelope-text">Tócame 💌</div>
 </div>
 
-<!-- CARTA -->
-<div class="card" id="card">
+<!-- PRIMER MENSAJE -->
+<div class="card" id="message1">
+
+  <h1>Feliz día de San Valentín 💘</h1>
+
+  <p>Te amo amor…</p>
+
+  <p>Hay algo más que quiero decirte…</p>
+
+  <button onclick="showFinal()">Continuar</button>
+
+</div>
+
+<!-- MENSAJE FINAL CON FOTO -->
+<div class="card" id="message2">
 
   <h1>Feliz día de San Valentín 💘</h1>
 
   <img src="foto.jpg">
 
-  <p>Te amo amor.</p>
-
   <p>
-    Te quiero decir que eres muy importante para mí y cada día soy feliz contigo.
-    Te amo y espero poder celebrar todos los años contigo mi amor bonito ❤️
+  Te quiero decir que eres muy importante para mí y cada día soy feliz contigo.
+  Te amo y espero poder celebrar todos los años contigo mi amor bonito ❤️
   </p>
 
 </div>
 
-<div class="hearts" id="hearts"></div>
-
 <script>
+
+/* ABRIR SOBRE */
 
 function openEnvelope(){
 
@@ -227,9 +220,16 @@ function openEnvelope(){
 
   setTimeout(()=>{
     document.getElementById("envelope").style.display="none";
-    document.getElementById("card").style.display="block";
+    document.getElementById("message1").style.display="block";
     showHearts();
   },800);
+}
+
+/* MOSTRAR FOTO */
+
+function showFinal(){
+  document.getElementById("message1").style.display="none";
+  document.getElementById("message2").style.display="block";
 }
 
 /* CORAZONES */
@@ -245,6 +245,19 @@ function showHearts(){
     hearts.appendChild(h);
     setTimeout(()=>h.remove(),6000);
   }
+}
+
+/* PETALOS */
+
+const petals=document.getElementById('petals');
+
+for(let i=0;i<20;i++){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.style.left=Math.random()*100+'vw';
+  p.style.animationDuration=(5+Math.random()*5)+'s';
+  p.innerHTML='🌸';
+  petals.appendChild(p);
 }
 
 </script>
