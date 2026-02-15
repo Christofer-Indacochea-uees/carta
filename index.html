@@ -6,242 +6,149 @@
 <title>Carta San Valentín 💌</title>
 
 <style>
+
 body{
   margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:linear-gradient(135deg,#f8cdda,#fbd3e9);
-  overflow:hidden;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  background:#d9b3c1;
+  font-family:'Segoe UI', sans-serif;
 }
-/* TEXTO TOCAME */
 
+/* CONTENEDOR GENERAL */
+.container{
+  position:relative;
+  width:260px;
+  height:220px;
+}
+
+/* TEXTO TOCAME */
 .touch-text{
   position:absolute;
-  top:50%;
+  top:-60px;
   left:50%;
-  transform:translate(-50%, -160px);
-  
+  transform:translateX(-50%);
   background:rgba(255,255,255,0.25);
   backdrop-filter:blur(6px);
   padding:10px 18px;
   border-radius:20px;
-
   color:white;
-  font-size:22px;
+  font-size:20px;
   font-weight:bold;
   letter-spacing:1px;
-
   animation:latido 1.5s infinite;
-  z-index:20;
-  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+  z-index:5;
+  pointer-events:none;
 }
-
 
 @keyframes latido{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.15);}
-}
-
-/* VIDEO MUSICA (OCULTO) */
-.music{
-  position:fixed;
-  width:0;
-  height:0;
-  opacity:0;
+  0%{ transform:translateX(-50%) scale(1); }
+  50%{ transform:translateX(-50%) scale(1.08); }
+  100%{ transform:translateX(-50%) scale(1); }
 }
 
 /* SOBRE */
-
 .envelope{
-  position:relative;
-  width:220px;
-  height:150px;
-  background:#ff6f91;
+  position:absolute;
+  width:260px;
+  height:180px;
+  background:#f0627e;
+  bottom:0;
   cursor:pointer;
-  transition:transform .6s;
-  z-index:5;
+  transition:transform .6s ease;
 }
 
-.envelope:before{
+/* TRIANGULO DEL SOBRE */
+.envelope::before{
   content:"";
   position:absolute;
+  top:-90px;
+  left:0;
   width:0;
   height:0;
-  border-left:110px solid transparent;
-  border-right:110px solid transparent;
-  border-bottom:75px solid #ff8fab;
-  top:-75px;
-  left:0;
-  transition:transform .6s;
+  border-left:130px solid transparent;
+  border-right:130px solid transparent;
+  border-bottom:90px solid #e98098;
+  transition:transform .6s ease;
   transform-origin:bottom;
 }
 
-.envelope.open:before{
+/* CARTA INTERNA */
+.letter{
+  position:absolute;
+  width:230px;
+  height:150px;
+  background:white;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  padding:15px;
+  box-sizing:border-box;
+  border-radius:8px;
+  text-align:center;
+  opacity:0;
+  transition:all .6s ease;
+}
+
+/* MENSAJE DENTRO */
+.letter p{
+  margin:0;
+  color:#444;
+  font-size:16px;
+}
+
+/* ESTADO ABIERTO */
+.container.open .envelope::before{
   transform:rotateX(180deg);
 }
 
-/* CARTAS */
+.container.open .letter{
+  bottom:120px;
+  opacity:1;
+}
 
-.card{
+/* OCULTAR TEXTO TOCAME CUANDO ABRE */
+.container.open .touch-text{
   display:none;
-  text-align:center;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  max-width:340px;
-  width:90%;
-  box-shadow:0 15px 40px rgba(0,0,0,0.25);
-  animation:fadeIn 1s ease;
-  position:relative;
-  z-index:10;
 }
 
-.card img{
-  width:100%;
-  border-radius:15px;
-  margin-top:15px;
-}
-
-button{
-  background:#ff6f91;
-  border:none;
-  color:white;
-  padding:10px 20px;
-  border-radius:12px;
-  cursor:pointer;
-  margin-top:15px;
-  font-size:15px;
-}
-
-button:hover{
-  background:#ff4f75;
-}
-
-/* PETALOS Y CORAZONES */
-
-.petals, .hearts{
-  position:fixed;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:1;
-}
-
-.petal, .heart{
-  position:absolute;
-  font-size:18px;
-  animation:fall linear infinite;
-}
-
-@keyframes fall{
-  0%{transform:translateY(-10vh);}
-  100%{transform:translateY(110vh);}
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(.8);}
-  to{opacity:1; transform:scale(1);}
-}
 </style>
 </head>
 
 <body>
 
-<!-- MUSICA WONDERWALL DESDE YOUTUBE -->
-<div class="music">
-<iframe width="560" height="315"
+<div class="container" id="container">
+
+  <div class="touch-text">Tócame 💌</div>
+
+  <div class="envelope"></div>
+
+  <div class="letter">
+    <p>
+      Feliz San Valentín ❤️<br><br>
+      Eres una persona muy especial para mí y quería recordártelo hoy.<br><br>
+      Gracias por existir 💖
+    </p>
+  </div>
+
+</div>
+
+<!-- AUDIO YOUTUBE WONDERWALL -->
+<iframe width="0" height="0"
 src="https://www.youtube.com/embed/bx1Bh8ZvH84?autoplay=1&loop=1&playlist=bx1Bh8ZvH84"
-title="Wonderwall Oasis"
 frameborder="0"
 allow="autoplay">
 </iframe>
-</div>
-
-<!-- PETALOS Y CORAZONES -->
-<div class="petals" id="petals"></div>
-<div class="hearts" id="hearts"></div>
-
-  <!-- TEXTO -->
-<div class="touch-text">Tócame 💌</div>
-
-<!-- SOBRE -->
-<div class="envelope" id="envelope" onclick="openEnvelope()"></div>
-
-<!-- MENSAJE 1 -->
-<div class="card" id="message1">
-  <h2>Feliz día de San Valentín 💘</h2>
-
-  <p>Te amo amor…</p>
-  <p>Hay algo más que quiero decirte…</p>
-
-  <button onclick="showPhoto()">Continuar</button>
-</div>
-
-<!-- MENSAJE 2 -->
-<div class="card" id="message2">
-  <h2>Feliz día de San Valentín 💘</h2>
-
-  <img src="foto.jpg">
-
-  <p>
-  Te quiero decir que eres muy importante para mí y cada día soy feliz contigo.
-  Te amo y espero poder celebrar todos los años contigo mi amor bonito ❤️
-  </p>
-</div>
 
 <script>
 
-/* CONTROL SOBRE */
+const container = document.getElementById("container");
 
-let opened=false;
-
-function openEnvelope(){
-  if(opened) return;
-  opened=true;
-
-  document.getElementById("envelope").classList.add("open");
-
-  setTimeout(()=>{
-    document.getElementById("envelope").style.display="none";
-    document.getElementById("message1").style.display="block";
-    createDecorations();
-  },800);
-}
-
-/* BOTON CONTINUAR */
-
-function showPhoto(){
-  document.getElementById("message1").style.display="none";
-  document.getElementById("message2").style.display="block";
-}
-
-/* DECORACIONES */
-
-function createDecorations(){
-  const petals=document.getElementById("petals");
-  const hearts=document.getElementById("hearts");
-
-  for(let i=0;i<20;i++){
-    let p=document.createElement("div");
-    p.className="petal";
-    p.innerHTML="🌸";
-    p.style.left=Math.random()*100+"%";
-    p.style.animationDuration=(5+Math.random()*5)+"s";
-    petals.appendChild(p);
-  }
-
-  for(let i=0;i<15;i++){
-    let h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤️";
-    h.style.left=Math.random()*100+"%";
-    h.style.animationDuration=(4+Math.random()*4)+"s";
-    hearts.appendChild(h);
-  }
-}
+container.addEventListener("click", ()=>{
+  container.classList.toggle("open");
+});
 
 </script>
 
