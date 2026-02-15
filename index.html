@@ -19,11 +19,16 @@ body{
 /* TEXTO TOCAME */
 
 .touch-text{
+  position:absolute;
+  top:calc(50% - 140px);
+  left:50%;
+  transform:translateX(-50%);
   color:white;
   font-size:24px;
-  margin-bottom:20px;
   animation:latido 1.5s infinite;
+  z-index:5;
 }
+
 
 @keyframes latido{
   0%,100%{transform:scale(1);}
